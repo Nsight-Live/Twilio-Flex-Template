@@ -9,7 +9,7 @@ output "workflow_sid_assign_to_anyone" {
   description = "Assign To Anyone workflow SID"
 }
 output "workflow_sid_workflow_for_nsight" {
-  value = twilio_taskrouter_workspaces_workflows_v1.workflow_sid_workflow_for_nsight.sid
+  value = twilio_taskrouter_workspaces_workflows_v1.workflow_for_nsight.sid
   description = "Workflow for Nsight SID"
 }
 # END FEATURE: remove-all
