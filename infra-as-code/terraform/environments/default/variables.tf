@@ -51,6 +51,15 @@ variable "SERVERLESS_ENV_SID" {
   }
 }
 
+variable "SCHEDULE_MANAGER_CHECK_FUNCTION_SID" {
+  type        = string
+  description = "check schedule function sid"
+  validation {
+    condition     = length(var.SCHEDULE_MANAGER_CHECK_FUNCTION_SID) > 2 && substr(var.SCHEDULE_MANAGER_CHECK_FUNCTION_SID, 0, 2) == "ZH"
+    error_message = "SCHEDULE_MANAGER_CHECK_FUNCTION_SID expected to start with \"ZH\"."
+  }
+}
+
 # FEATURE: schedule-manager
 
 variable "SCHEDULE_MANAGER_DOMAIN" {
@@ -80,12 +89,12 @@ variable "SCHEDULE_MANAGER_ENV_SID" {
   }
 }
 
-variable "SCHEDULE_MANAGER_CHECK_FUNCTION_SID" {
+variable "SERVERLESS_DEALER_NAME_FUNCTION_SID" {
   type        = string
-  description = "check schedule function sid"
+  description = "check dealer name function sid"
   validation {
-    condition     = length(var.SCHEDULE_MANAGER_CHECK_FUNCTION_SID) > 2 && substr(var.SCHEDULE_MANAGER_CHECK_FUNCTION_SID, 0, 2) == "ZH"
-    error_message = "SCHEDULE_MANAGER_CHECK_FUNCTION_SID expected to start with \"ZH\"."
+    condition     = length(var.SERVERLESS_DEALER_NAME_FUNCTION_SID) > 2 && substr(var.SERVERLESS_DEALER_NAME_FUNCTION_SID, 0, 2) == "ZH"
+    error_message = "SERVERLESS_DEALER_NAME_FUNCTION_SID expected to start with \"ZH\"."
   }
 }
 

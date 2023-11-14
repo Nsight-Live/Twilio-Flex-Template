@@ -37,18 +37,20 @@ locals{
     
 # FEATURE: remove-all
     "WORKFLOW_SID_ASSIGN_TO_ANYONE" = var.workflow_sid_assign_to_anyone
+    "WORKFLOW_SID_WORKFLOW_FOR_NSIGHT" = var.workflow_sid_workflow_for_nsight
 # END FEATURE: remove-all
 
     "SERVERLESS_DOMAIN" = var.serverless_domain
     "SERVERLESS_SID" = var.serverless_sid
     "SERVERLESS_ENV_SID" = var.serverless_env_sid
-    
+    "SERVERLESS_DEALER_NAME_FUNCTION_SID" = var.function_dealer_name_sid 
 # FEATURE: schedule-manager
     "SCHEDULE_MANAGER_DOMAIN" = var.schedule_manager_domain
     "SCHEDULE_MANAGER_SID" = var.schedule_manager_sid
     "SCHEDULE_MANAGER_ENV_SID" = var.schedule_manager_env_sid
     "FUNCTION_CHECK_SCHEDULE_SID" = var.function_check_schedule_sid
 # END FEATURE: schedule-manager
+
 
 # FEATURE: callback-and-voicemail
     "FUNCTION_CREATE_CALLBACK" = var.function_create_callback

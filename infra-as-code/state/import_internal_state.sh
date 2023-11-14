@@ -44,6 +44,7 @@ importInternalState() {
 
 # FEATURE: remove-all
 	import_resource "$workflows" "Assign to Anyone" "module.taskrouter.twilio_taskrouter_workspaces_workflows_v1.assign_to_anyone" "friendlyName"
+	import_resource "$workflows" "Workflow for Nsight" "module.taskrouter.twilio_taskrouter_workspaces_workflows_v1.workflow_for_nsight" "friendlyName"
 # END FEATURE: remove-all
 
 # FEATURE: conversation-transfer
