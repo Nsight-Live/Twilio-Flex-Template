@@ -24,7 +24,7 @@ resource "twilio_studio_flows_v2" "messaging" {
 # FEATURE: callback-and-voicemail
 # FEATURE: schedule-manager
 resource "twilio_studio_flows_v2" "voice" {
-  friendly_name  = "Voice IVR"
+  friendly_name  = "Voice Flow"
   status         = "published"
   definition = templatefile("../../studio/voice-flow.json", local.params)
 }
