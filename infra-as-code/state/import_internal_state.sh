@@ -66,6 +66,8 @@ importInternalState() {
 	import_resource "$queues" "Everyone" "module.taskrouter.twilio_taskrouter_workspaces_task_queues_v1.everyone" "friendlyName"
 	import_resource "$queues" "Template Example Sales" "module.taskrouter.twilio_taskrouter_workspaces_task_queues_v1.template_example_sales" "friendlyName"
 	import_resource "$queues" "Template Example Support" "module.taskrouter.twilio_taskrouter_workspaces_task_queues_v1.template_example_support" "friendlyName"
+	import_resource "$queues" "Nissan Auto Dealers" "module.taskrouter.twilio_taskrouter_workspaces_task_queues_v1.nissan_auto_dealers" "friendlyName"
+	import_resource "$queues" "Toyota" "module.taskrouter.twilio_taskrouter_workspaces_task_queues_v1.toyota" "friendlyName"
 # END FEATURE: remove-all
 
 # FEATURE: internal-call
