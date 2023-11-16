@@ -5,6 +5,11 @@ resource "twilio_taskrouter_workspaces_workflows_v1" "assign_to_anyone" {
   friendly_name = "Assign to Anyone"
   configuration = templatefile("../../taskrouter/assign_to_anyone.json", local.params)
 }
+resource "twilio_taskrouter_workspaces_workflows_v1" "workflow_for_nsight" {
+  workspace_sid = twilio_taskrouter_workspaces_v1.flex.sid
+  friendly_name = "Workflow for Nsight"
+  configuration = templatefile("../../taskrouter/workflow_for_nsight.json", local.params)
+}
 # END FEATURE: remove-all
 
 # FEATURE: callback-and-voicemail
@@ -38,6 +43,8 @@ locals{
     "QUEUE_SID_EVERYONE" = twilio_taskrouter_workspaces_task_queues_v1.everyone.sid
     "QUEUE_SID_TEMPLATE_EXAMPLE_SALES" = twilio_taskrouter_workspaces_task_queues_v1.template_example_sales.sid
     "QUEUE_SID_TEMPLATE_EXAMPLE_SUPPORT" = twilio_taskrouter_workspaces_task_queues_v1.template_example_support.sid
+    "QUEUE_SID_NISSAN_AUTO_DEALERS" = twilio_taskrouter_workspaces_task_queues_v1.nissan_auto_dealers.sid
+    "QUEUE_SID_TOYOTA" = twilio_taskrouter_workspaces_task_queues_v1.toyota.sid
 # END FEATURE: remove-all
 
 # FEATURE: internal-call

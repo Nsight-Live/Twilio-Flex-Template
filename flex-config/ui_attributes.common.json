@@ -7,12 +7,7 @@
   "custom_data": {
     "common": {
       "log_level": "info",
-      "teams": [
-        "Blue Team",
-        "Red Team",
-        "Gold Team",
-        "VIP Team"
-      ],
+      "teams": ["Blue Team", "Red Team", "Gold Team", "VIP Team"],
       "departments": [
         "General Management",
         "Marketing",
@@ -218,7 +213,11 @@
         "enabled": true,
         "enable_notes": true,
         "require_disposition": false,
-        "global_dispositions": ["Resolved", "Not Resolved", "Follow-up Required", "Escalation", "Wrong Department"],
+        "global_dispositions": [
+          "Appointment Set",
+          "Appointment Not Set",
+          "Escalation Required"
+        ],
         "per_queue": {
           "exampleQueueSid": {
             "require_disposition": true,

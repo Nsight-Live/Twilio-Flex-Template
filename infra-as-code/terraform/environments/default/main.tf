@@ -22,6 +22,7 @@ module "studio" {
 
 # FEATURE: remove-all
   workflow_sid_assign_to_anyone = module.taskrouter.workflow_sid_assign_to_anyone
+  workflow_sid_workflow_for_nsight = module.taskrouter.workflow_sid_workflow_for_nsight
 # END FEATURE: remove-all
 
 # FEATURE: conversation-transfer
@@ -41,6 +42,7 @@ module "studio" {
   serverless_domain = var.SERVERLESS_DOMAIN
   serverless_sid = var.SERVERLESS_SID
   serverless_env_sid = var.SERVERLESS_ENV_SID
+  function_dealer_name_sid = var.SERVERLESS_DEALER_NAME_FUNCTION_SID
 
 # FEATURE: schedule-manager
   schedule_manager_domain = var.SCHEDULE_MANAGER_DOMAIN

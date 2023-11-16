@@ -9,7 +9,7 @@
           "event": "incomingMessage"
         },
         {
-          "next": "check_schedule",
+          "next": "Check_Schedule",
           "event": "incomingCall"
         },
         {
@@ -24,8 +24,8 @@
       ],
       "properties": {
         "offset": {
-          "x": 0,
-          "y": -10
+          "x": 20,
+          "y": -370
         }
       }
     },
@@ -44,27 +44,105 @@
         }
       ],
       "properties": {
-        "waitUrl": "https://${SERVERLESS_DOMAIN}/features/callback-and-voicemail/studio/wait-experience?mode=initialize",
+        "waitUrl": "https://custom-flex-extensions-serverless-7680-dev.twil.io/features/callback-and-voicemail/studio/wait-experience",
         "offset": {
-          "x": 570,
-          "y": 600
+          "x": 190,
+          "y": 1670
         },
-        "workflow": "${WORKFLOW_SID_ASSIGN_TO_ANYONE}",
+        "workflow": "${WORKFLOW_SID_WORKFLOW_FOR_NSIGHT}",
         "channel": "${VOICE_CHANNEL_SID}",
-        "attributes": "{ \"type\": \"inbound\", \"name\": \"{{trigger.call.From}}\", \"conversations\": {\"hang_up_by\": \"Customer\"} }",
-        "waitUrlMethod": "POST"
+        "attributes": "{ \"type\": \"inbound\", \"name\": \"{{trigger.call.From}}\",  \"dealerName\": \"{{widgets.set_variables.dealerName}}\", \"queueName\": \"{{widgets.set_variables.queueName}}\", \"friendlyName\": \"{{widgets.set_variables.friendlyName}}\" }",
+        "waitUrlMethod": "GET"
       }
     },
     {
-      "name": "check_schedule",
+      "name": "Open_Message",
+      "type": "say-play",
+      "transitions": [
+        {
+          "next": "Get_Dealer_Name",
+          "event": "audioComplete"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 380,
+          "y": 920
+        },
+        "loop": 1,
+        "say": "Hello, and thank you for reaching out to Nsight. An agent will be with you shortly. Please stay on the line."
+      }
+    },
+    {
+      "name": "Get_Dealer_Name",
       "type": "run-function",
       "transitions": [
         {
-          "next": "is_open",
+          "next": "set_variables",
           "event": "success"
         },
         {
+          "next": "set_counter_for_dealer_name",
+          "event": "fail"
+        }
+      ],
+      "properties": {
+        "service_sid": "${SERVERLESS_SID}",
+        "environment_sid": "${SERVERLESS_ENV_SID}",
+        "offset": {
+          "x": 410,
+          "y": 1160
+        },
+        "function_sid": "${SERVERLESS_DEALER_NAME_FUNCTION_SID}",
+        "parameters": [
+          {
+            "value": "{{trigger.call.To}}",
+            "key": "phone"
+          }
+        ],
+        "url": "https://${SERVERLESS_DOMAIN}/new_get_dealer_name"
+      }
+    },
+    {
+      "name": "set_variables",
+      "type": "set-variables",
+      "transitions": [
+        {
           "next": "SendCallToAgent",
+          "event": "next"
+        }
+      ],
+      "properties": {
+        "variables": [
+          {
+            "value": "{{widgets.Get_Dealer_Name.parsed.dealerName}}",
+            "key": "dealerName"
+          },
+          {
+            "value": "{{widgets.Get_Dealer_Name.parsed.queueName}}",
+            "key": "queueName"
+          },
+          {
+            "value": "{{widgets.Get_Dealer_Name.parsed.friendlyName}}",
+            "key": "friendlyName"
+          }
+        ],
+        "offset": {
+          "x": 170,
+          "y": 1450
+        }
+      }
+    },
+    {
+      "name": "Check_Schedule",
+      "type": "run-function",
+      "transitions": [
+        {
+          "next": "set_isOpen",
+          "event": "success"
+        },
+        {
+          "next": "set_counter_for_schedule",
           "event": "fail"
         }
       ],
@@ -72,13 +150,13 @@
         "service_sid": "${SCHEDULE_MANAGER_SID}",
         "environment_sid": "${SCHEDULE_MANAGER_ENV_SID}",
         "offset": {
-          "x": 40,
-          "y": 170
+          "x": 160,
+          "y": -100
         },
         "function_sid": "${FUNCTION_CHECK_SCHEDULE_SID}",
         "parameters": [
           {
-            "value": "Example",
+            "value": "Schedule for Mountain Time Zone",
             "key": "name"
           }
         ],
@@ -86,22 +164,20 @@
       }
     },
     {
-      "name": "is_open",
+      "name": "isOpen",
       "type": "split-based-on",
       "transitions": [
         {
-          "next": "say_closed",
+          "next": "Closed_Message",
           "event": "noMatch"
         },
         {
-          "next": "SendCallToAgent",
+          "next": "Open_Message",
           "event": "match",
           "conditions": [
             {
               "friendly_name": "If value equal_to true",
-              "arguments": [
-                "{{widgets.check_schedule.parsed.isOpen}}"
-              ],
+              "arguments": ["{{widgets.set_isOpen.isOpen}}"],
               "type": "equal_to",
               "value": "true"
             }
@@ -109,28 +185,177 @@
         }
       ],
       "properties": {
-        "input": "{{widgets.check_schedule.parsed.isOpen}}",
+        "input": "{{widgets.set_isOpen.isOpen}}",
         "offset": {
-          "x": 40,
-          "y": 480
+          "x": 160,
+          "y": 540
         }
       }
     },
     {
-      "name": "say_closed",
+      "name": "Closed_Message",
       "type": "say-play",
       "transitions": [
         {
+          "next": "Outside_business_hours_message",
           "event": "audioComplete"
         }
       ],
       "properties": {
         "offset": {
-          "x": 40,
-          "y": 710
+          "x": -410,
+          "y": 980
         },
         "loop": 1,
-        "say": "{% case widgets.check_schedule.parsed.closedReason  %}\n\n{% when 'manual' %}\n\nWe are currently closed due to unforseen circumstances. Please call back later.\n\n{% when 'holiday' %}\n\nWe are currently closed due to the holiday. Please call back during our normal business hours.\n\n{% else %}\n\nWe are currently closed. Please call back during our normal business hours.\n\n{% endcase %}\n\nThank you for calling and have a great day."
+        "say": "{% case widgets.check_schedule.parsed.closedReason  %}\n\n{% when 'manual' %}\n\nThank you for calling Nsight. We are currently closed due to unforseen circumstances. Please leave us a voicemail and we'll get back to you as soon as we are open.\n\n{% when 'holiday' %}\n\nThank you for calling Nsight. We are currently closed due to the holiday. Please leave us a voicemail and we'll get back to you as soon as we are open.\n\n{% else %}\n\nThank you for calling Nsight. We are currently closed. Please leave us a voicemail and we'll get back to you as soon as we are open.\n\n{% endcase %}\n\nThank you for calling and have a great day."
+      }
+    },
+    {
+      "name": "Outside_business_hours_message",
+      "type": "send-message",
+      "transitions": [
+        {
+          "event": "sent"
+        },
+        {
+          "event": "failed"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": -440,
+          "y": 1280
+        },
+        "service": "{{trigger.message.InstanceSid}}",
+        "channel": "{{trigger.message.ChannelSid}}",
+        "from": "{{flow.channel.address}}",
+        "message_type": "custom",
+        "to": "{{contact.channel.address}}",
+        "body": "Thank you for reaching out to Nsight. We're closed now and one of our agents will get in touch with you as soon as we are open."
+      }
+    },
+    {
+      "name": "set_isOpen",
+      "type": "set-variables",
+      "transitions": [
+        {
+          "next": "isOpen",
+          "event": "next"
+        }
+      ],
+      "properties": {
+        "variables": [
+          {
+            "value": "{{widgets.Check_Schedule.parsed.isOpen | default: false}}",
+            "key": "isOpen"
+          }
+        ],
+        "offset": {
+          "x": 160,
+          "y": 220
+        }
+      }
+    },
+    {
+      "name": "set_counter_for_schedule",
+      "type": "set-variables",
+      "transitions": [
+        {
+          "next": "schedule_check_counter",
+          "event": "next"
+        }
+      ],
+      "properties": {
+        "variables": [
+          {
+            "value": "{% if flow.variables.retry_schedule_count %}{{ flow.variables.retry_schedule_count | plus: 1 }}\n{% else %}\n1\n{% endif %}",
+            "key": "retry_schedule_count"
+          }
+        ],
+        "offset": {
+          "x": 1030,
+          "y": 120
+        }
+      }
+    },
+    {
+      "name": "schedule_check_counter",
+      "type": "split-based-on",
+      "transitions": [
+        {
+          "next": "Check_Schedule",
+          "event": "noMatch"
+        },
+        {
+          "next": "set_isOpen",
+          "event": "match",
+          "conditions": [
+            {
+              "friendly_name": "If value equal_to 3",
+              "arguments": ["{{flow.variables.retry_schedule_count}}"],
+              "type": "equal_to",
+              "value": "3"
+            }
+          ]
+        }
+      ],
+      "properties": {
+        "input": "{{flow.variables.retry_schedule_count}}",
+        "offset": {
+          "x": 1110,
+          "y": 460
+        }
+      }
+    },
+    {
+      "name": "set_counter_for_dealer_name",
+      "type": "set-variables",
+      "transitions": [
+        {
+          "next": "dealer_name_counter",
+          "event": "next"
+        }
+      ],
+      "properties": {
+        "variables": [
+          {
+            "value": "{% if flow.variables.retry_dealer_name_count %}{{ flow.variables.retry_dealer_name_count | plus: 1 }}\n{% else %}\n1\n{% endif %}",
+            "key": "retry_dealer_name_count"
+          }
+        ],
+        "offset": {
+          "x": 850,
+          "y": 1390
+        }
+      }
+    },
+    {
+      "name": "dealer_name_counter",
+      "type": "split-based-on",
+      "transitions": [
+        {
+          "next": "Get_Dealer_Name",
+          "event": "noMatch"
+        },
+        {
+          "next": "SendCallToAgent",
+          "event": "match",
+          "conditions": [
+            {
+              "friendly_name": "If value equal_to 3",
+              "arguments": ["{{flow.variables.retry_dealer_name_count}}"],
+              "type": "equal_to",
+              "value": "3"
+            }
+          ]
+        }
+      ],
+      "properties": {
+        "input": "{{flow.variables.retry_dealer_name_count}}",
+        "offset": {
+          "x": 1050,
+          "y": 1650
+        }
       }
     }
   ],
