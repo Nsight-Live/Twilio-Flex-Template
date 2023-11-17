@@ -1,0 +1,35 @@
+{
+  "task_routing": {
+    "filters": [
+      {
+        "filter_friendly_name": "Nissan",
+        "expression": "queueName HAS 'Nissan'",
+        "targets": [
+          {
+            "queue": "${QUEUE_SID_NISSAN_AUTO_DEALERS}",
+            "timeout": 20
+          },
+          {
+            "queue": "${QUEUE_SID_EVERYONE}"
+          }
+        ]
+      },
+      {
+        "filter_friendly_name": "Toyota",
+        "expression": "queueName HAS 'Toyota'",
+        "targets": [
+          {
+            "queue": "${QUEUE_SID_TOYOTA}",
+            "timeout": 20
+          },
+          {
+            "queue": "${QUEUE_SID_EVERYONE}"
+          }
+        ]
+      }
+    ],
+    "default_filter": {
+      "queue": "${QUEUE_SID_EVERYONE}"
+    }
+  }
+}

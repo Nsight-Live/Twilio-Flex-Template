@@ -1,18 +1,19 @@
 {
-  "description": "IVR for creating a Flex voice task",
+  "description": "A New Flow",
   "states": [
     {
       "name": "Trigger",
       "type": "trigger",
       "transitions": [
         {
+          "next": "send_to_flex_1",
           "event": "incomingMessage"
         },
         {
-          "next": "Check_Schedule",
           "event": "incomingCall"
         },
         {
+          "next": "Check_Schedule",
           "event": "incomingConversationMessage"
         },
         {
@@ -24,13 +25,13 @@
       ],
       "properties": {
         "offset": {
-          "x": 20,
-          "y": -370
+          "x": 0,
+          "y": 0
         }
       }
     },
     {
-      "name": "SendCallToAgent",
+      "name": "send_to_flex_1",
       "type": "send-to-flex",
       "transitions": [
         {
@@ -44,33 +45,61 @@
         }
       ],
       "properties": {
-        "waitUrl": "https://custom-flex-extensions-serverless-7680-dev.twil.io/features/callback-and-voicemail/studio/wait-experience",
         "offset": {
-          "x": 190,
-          "y": 1670
+          "x": 60,
+          "y": 250
         },
         "workflow": "${WORKFLOW_SID_WORKFLOW_FOR_NSIGHT}",
-        "channel": "${VOICE_CHANNEL_SID}",
-        "attributes": "{ \"type\": \"inbound\", \"name\": \"{{trigger.call.From}}\",  \"dealerName\": \"{{widgets.set_variables.dealerName}}\", \"queueName\": \"{{widgets.set_variables.queueName}}\", \"friendlyName\": \"{{widgets.set_variables.friendlyName}}\" }",
-        "waitUrlMethod": "GET"
+        "channel": "${CHAT_CHANNEL_SID}"
       }
     },
     {
-      "name": "Open_Message",
-      "type": "say-play",
+      "name": "SendMessageToAgent",
+      "type": "send-to-flex",
       "transitions": [
         {
-          "next": "Get_Dealer_Name",
-          "event": "audioComplete"
+          "event": "callComplete"
+        },
+        {
+          "event": "failedToEnqueue"
+        },
+        {
+          "event": "callFailure"
         }
       ],
       "properties": {
         "offset": {
-          "x": 380,
-          "y": 920
+          "x": 440,
+          "y": 1720
         },
-        "loop": 1,
-        "say": "Hello, and thank you for reaching out to Nsight. An agent will be with you shortly. Please stay on the line."
+        "workflow": "${WORKFLOW_SID_WORKFLOW_FOR_NSIGHT}",
+        "channel": "${CHAT_CHANNEL_SID}",
+        "attributes": "{ \"type\": \"inbound\", \n\"dealerName\": \"{{widgets.set_variables.dealerName}}\", \"queueName\": \"{{widgets.set_variables.queueName}}\", \"friendlyName\": \"{{widgets.set_variables.friendlyName}}\"}"
+      }
+    },
+    {
+      "name": "open_message",
+      "type": "send-message",
+      "transitions": [
+        {
+          "next": "Get_Dealer_Name",
+          "event": "sent"
+        },
+        {
+          "event": "failed"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 990,
+          "y": 950
+        },
+        "service": "{{trigger.message.InstanceSid}}",
+        "channel": "{{trigger.message.ChannelSid}}",
+        "from": "{{flow.channel.address}}",
+        "message_type": "custom",
+        "to": "{{contact.channel.address}}",
+        "body": "Hi, Thank you for reaching out to Nsight. An agent will be with you shortly."
       }
     },
     {
@@ -90,14 +119,18 @@
         "service_sid": "${SERVERLESS_SID}",
         "environment_sid": "${SERVERLESS_ENV_SID}",
         "offset": {
-          "x": 410,
-          "y": 1160
+          "x": 740,
+          "y": 1180
         },
         "function_sid": "${SERVERLESS_DEALER_NAME_FUNCTION_SID}",
         "parameters": [
           {
-            "value": "{{trigger.call.To}}",
-            "key": "phone"
+            "value": "{{trigger.conversation.ConversationSid}}",
+            "key": "conversationSid"
+          },
+          {
+            "value": "{{trigger.conversation.ParticipantSid}}",
+            "key": "participantSid"
           }
         ],
         "url": "https://${SERVERLESS_DOMAIN}/new_get_dealer_name"
@@ -108,7 +141,7 @@
       "type": "set-variables",
       "transitions": [
         {
-          "next": "SendCallToAgent",
+          "next": "SendMessageToAgent",
           "event": "next"
         }
       ],
@@ -119,17 +152,17 @@
             "key": "dealerName"
           },
           {
-            "value": "{{widgets.Get_Dealer_Name.parsed.queueName}}",
-            "key": "queueName"
-          },
-          {
             "value": "{{widgets.Get_Dealer_Name.parsed.friendlyName}}",
             "key": "friendlyName"
+          },
+          {
+            "value": "{{widgets.Get_Dealer_Name.parsed.queueName}}",
+            "key": "queueName"
           }
         ],
         "offset": {
-          "x": 170,
-          "y": 1450
+          "x": 580,
+          "y": 1460
         }
       }
     },
@@ -150,13 +183,13 @@
         "service_sid": "${SCHEDULE_MANAGER_SID}",
         "environment_sid": "${SCHEDULE_MANAGER_ENV_SID}",
         "offset": {
-          "x": 160,
-          "y": -100
+          "x": 680,
+          "y": 220
         },
         "function_sid": "${FUNCTION_CHECK_SCHEDULE_SID}",
         "parameters": [
           {
-            "value": "Schedule for Mountain Time Zone",
+            "value": "Schedule for Pacific Dealers",
             "key": "name"
           }
         ],
@@ -168,11 +201,11 @@
       "type": "split-based-on",
       "transitions": [
         {
-          "next": "Closed_Message",
+          "next": "closed_message",
           "event": "noMatch"
         },
         {
-          "next": "Open_Message",
+          "next": "open_message",
           "event": "match",
           "conditions": [
             {
@@ -187,31 +220,13 @@
       "properties": {
         "input": "{{widgets.set_isOpen.isOpen}}",
         "offset": {
-          "x": 160,
-          "y": 540
+          "x": 480,
+          "y": 720
         }
       }
     },
     {
-      "name": "Closed_Message",
-      "type": "say-play",
-      "transitions": [
-        {
-          "next": "Outside_business_hours_message",
-          "event": "audioComplete"
-        }
-      ],
-      "properties": {
-        "offset": {
-          "x": -410,
-          "y": 980
-        },
-        "loop": 1,
-        "say": "{% case widgets.check_schedule.parsed.closedReason  %}\n\n{% when 'manual' %}\n\nThank you for calling Nsight. We are currently closed due to unforseen circumstances. Please leave us a voicemail and we'll get back to you as soon as we are open.\n\n{% when 'holiday' %}\n\nThank you for calling Nsight. We are currently closed due to the holiday. Please leave us a voicemail and we'll get back to you as soon as we are open.\n\n{% else %}\n\nThank you for calling Nsight. We are currently closed. Please leave us a voicemail and we'll get back to you as soon as we are open.\n\n{% endcase %}\n\nThank you for calling and have a great day."
-      }
-    },
-    {
-      "name": "Outside_business_hours_message",
+      "name": "closed_message",
       "type": "send-message",
       "transitions": [
         {
@@ -223,15 +238,15 @@
       ],
       "properties": {
         "offset": {
-          "x": -440,
-          "y": 1280
+          "x": -20,
+          "y": 1000
         },
         "service": "{{trigger.message.InstanceSid}}",
         "channel": "{{trigger.message.ChannelSid}}",
         "from": "{{flow.channel.address}}",
         "message_type": "custom",
         "to": "{{contact.channel.address}}",
-        "body": "Thank you for reaching out to Nsight. We're closed now and one of our agents will get in touch with you as soon as we are open."
+        "body": "{% case widgets.check_schedule.parsed.closedReason  %}\n{% when 'manual' %}\nThank you for messaging Nsight. We are currently closed due to unforseen circumstances. We'll get back to you as soon as we are open.\n{% when 'holiday' %}\nThank you for messaging Nsight. We are currently closed due to the holiday. We'll get back to you as soon as we are open.\n{% else %}\nThank you for messaging Nsight. We are currently closed. We'll get back to you as soon as we are open.\n{% endcase %}\n We hope you have a great day."
       }
     },
     {
@@ -251,8 +266,8 @@
           }
         ],
         "offset": {
-          "x": 160,
-          "y": 220
+          "x": 660,
+          "y": 480
         }
       }
     },
@@ -273,8 +288,8 @@
           }
         ],
         "offset": {
-          "x": 1030,
-          "y": 120
+          "x": 1140,
+          "y": 450
         }
       }
     },
@@ -302,8 +317,8 @@
       "properties": {
         "input": "{{flow.variables.retry_schedule_count}}",
         "offset": {
-          "x": 1110,
-          "y": 460
+          "x": 1100,
+          "y": 690
         }
       }
     },
@@ -324,8 +339,8 @@
           }
         ],
         "offset": {
-          "x": 850,
-          "y": 1390
+          "x": 1130,
+          "y": 1400
         }
       }
     },
@@ -338,7 +353,7 @@
           "event": "noMatch"
         },
         {
-          "next": "SendCallToAgent",
+          "next": "SendMessageToAgent",
           "event": "match",
           "conditions": [
             {
@@ -353,8 +368,8 @@
       "properties": {
         "input": "{{flow.variables.retry_dealer_name_count}}",
         "offset": {
-          "x": 1050,
-          "y": 1650
+          "x": 1220,
+          "y": 1630
         }
       }
     }

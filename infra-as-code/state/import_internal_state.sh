@@ -44,6 +44,7 @@ importInternalState() {
 
 # FEATURE: remove-all
 	import_resource "$workflows" "Assign to Anyone" "module.taskrouter.twilio_taskrouter_workspaces_workflows_v1.assign_to_anyone" "friendlyName"
+	import_resource "$workflows" "Workflow for Nsight" "module.taskrouter.twilio_taskrouter_workspaces_workflows_v1.workflow_for_nsight" "friendlyName"
 # END FEATURE: remove-all
 
 # FEATURE: conversation-transfer
@@ -65,6 +66,8 @@ importInternalState() {
 	import_resource "$queues" "Everyone" "module.taskrouter.twilio_taskrouter_workspaces_task_queues_v1.everyone" "friendlyName"
 	import_resource "$queues" "Template Example Sales" "module.taskrouter.twilio_taskrouter_workspaces_task_queues_v1.template_example_sales" "friendlyName"
 	import_resource "$queues" "Template Example Support" "module.taskrouter.twilio_taskrouter_workspaces_task_queues_v1.template_example_support" "friendlyName"
+	import_resource "$queues" "Nissan Auto Dealers" "module.taskrouter.twilio_taskrouter_workspaces_task_queues_v1.nissan_auto_dealers" "friendlyName"
+	import_resource "$queues" "Toyota" "module.taskrouter.twilio_taskrouter_workspaces_task_queues_v1.toyota" "friendlyName"
 # END FEATURE: remove-all
 
 # FEATURE: internal-call
@@ -97,6 +100,7 @@ importInternalState() {
 # FEATURE: callback-and-voicemail	
 # FEATURE: schedule-manager
 	import_resource "$flows" "Voice IVR" "module.studio.twilio_studio_flows_v2.voice" "friendlyName" false
+	import_resource "$flows" "New Messaging Flow IVR" "module.studio.twilio_studio_flows_v2.new" "friendlyName" false
 # END FEATURE: schedule-manager
 # END FEATURE: callback-and-voicemail
 	import_resource "$flows" "Messaging Flow" "module.studio.twilio_studio_flows_v2.messaging" "friendlyName" false

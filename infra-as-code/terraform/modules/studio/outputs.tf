@@ -16,6 +16,11 @@ output "voice_flow_sid" {
   description = "Voice Flow SID"
 }
 
+output "new_messaging_flow_sid" {
+  value = twilio_studio_flows_v2.new.sid
+  description = "New Messaging Flow SID"
+}
+
 # END FEATURE: schedule-manager
 # END FEATURE: callback-and-voicemail
 # END FEATURE: remove-all

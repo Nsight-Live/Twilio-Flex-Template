@@ -7,6 +7,14 @@ variable "workflow_sid_assign_to_anyone" {
     error_message = "workflow_sid_assign_to_anyone expected to start with \"WW\"."
   }
 }
+variable "workflow_sid_workflow_for_nsight" {
+  type        = string
+  description = "SID of the Workflow for Nsight workflow"
+  validation {
+    condition     = length(var.workflow_sid_workflow_for_nsight) > 2 && substr(var.workflow_sid_workflow_for_nsight, 0, 2) == "WW"
+    error_message = "workflow_sid_workflow_for_nsight expected to start with \"WW\"."
+  }
+}
 # END FEATURE: remove-all
 
 # FEATURE: conversation-transfer
@@ -121,6 +129,15 @@ variable "function_check_schedule_sid" {
   validation {
     condition     = length(var.function_check_schedule_sid) > 2 && substr(var.function_check_schedule_sid, 0, 2) == "ZH"
     error_message = "function_check_schedule_sid expected to start with \"ZH\"."
+  }
+}
+
+variable "function_dealer_name_sid" {
+  type        = string
+  description = "get customer by phone function sid"
+  validation {
+    condition     = length(var.function_dealer_name_sid) > 2 && substr(var.function_dealer_name_sid, 0, 2) == "ZH"
+    error_message = "function_dealer_name_sid expected to start with \"ZH\"."
   }
 }
 

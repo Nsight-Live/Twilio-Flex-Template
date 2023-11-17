@@ -17,6 +17,11 @@
     "name": "/features/callback-and-voicemail/studio/create-callback",
     "parent": "SERVERLESS_SID"
   },
+  "SERVERLESS_DEALER_NAME_FUNCTION_SID": {
+    "type": "serverless-function",
+    "name": "/features/dealer-name/get-dealer-name",
+    "parent": "SERVERLESS_SID"
+  },
   "SCHEDULE_MANAGER_SID": {
     "type": "serverless-service",
     "name": "schedule-manager"

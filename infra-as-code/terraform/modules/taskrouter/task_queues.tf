@@ -24,6 +24,22 @@ resource "twilio_taskrouter_workspaces_task_queues_v1" "template_example_support
   task_order = "FIFO"
 }
 
+resource "twilio_taskrouter_workspaces_task_queues_v1" "nissan_auto_dealers" {
+  workspace_sid  = twilio_taskrouter_workspaces_v1.flex.sid
+  friendly_name  = "Nissan Auto Dealers"
+  target_workers = "routing.skills HAS 'Nissan'"
+  max_reserved_workers = 1
+  task_order = "FIFO"
+}
+
+resource "twilio_taskrouter_workspaces_task_queues_v1" "toyota" {
+  workspace_sid  = twilio_taskrouter_workspaces_v1.flex.sid
+  friendly_name  = "Toyota"
+  target_workers = "routing.skills HAS 'Toyota'"
+  max_reserved_workers = 1
+  task_order = "FIFO"
+}
+
 # END FEATURE: remove-all
 
 # FEATURE: internal-call
@@ -34,4 +50,5 @@ resource "twilio_taskrouter_workspaces_task_queues_v1" "internal_calls" {
   max_reserved_workers = 1
   task_order = "FIFO"
 }
+
 # END FEATURE: internal-call
