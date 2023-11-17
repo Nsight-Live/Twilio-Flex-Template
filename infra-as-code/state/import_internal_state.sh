@@ -100,6 +100,7 @@ importInternalState() {
 # FEATURE: callback-and-voicemail	
 # FEATURE: schedule-manager
 	import_resource "$flows" "Voice IVR" "module.studio.twilio_studio_flows_v2.voice" "friendlyName" false
+	import_resource "$flows" "New Messaging Flow IVR" "module.studio.twilio_studio_flows_v2.new" "friendlyName" false
 # END FEATURE: schedule-manager
 # END FEATURE: callback-and-voicemail
 	import_resource "$flows" "Messaging Flow" "module.studio.twilio_studio_flows_v2.messaging" "friendlyName" false

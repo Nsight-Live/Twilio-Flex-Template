@@ -28,6 +28,12 @@ resource "twilio_studio_flows_v2" "voice" {
   status         = "published"
   definition = templatefile("../../studio/voice-flow.json", local.params)
 }
+
+resource "twilio_studio_flows_v2" "new" {
+  friendly_name  = "New Messaging Flow"
+  status         = "published"
+  definition = templatefile("../../studio/new-messaging-flow.json", local.params)
+}
 # END FEATURE: schedule-manager
 # END FEATURE: callback-and-voicemail
 # END FEATURE: remove-all
