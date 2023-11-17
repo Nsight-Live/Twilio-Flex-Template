@@ -10,17 +10,51 @@ const {
 } = (getFeatureFlags()?.features?.teams_view_enhancements as TeamsViewEnhancementsConfig) || {};
 
 const {
+<<<<<<< HEAD
+=======
+  calls = true,
+  other_tasks = true,
+>>>>>>> upstream/main
   team = true,
   department = false,
   location = false,
   agent_skills = true,
+<<<<<<< HEAD
 } = getFeatureFlags().features?.teams_view_enhancements?.columns || {};
 
+=======
+  activity_icon = false,
+} = getFeatureFlags().features?.teams_view_enhancements?.columns || {};
+
+const {
+  agent_activity_configuration = {
+    activities: {
+      Available: { color: 'green', icon: 'Accept' },
+      Outbound: { color: 'darkgreen', icon: 'Call' },
+      Break: { color: 'goldenrod', icon: 'Hold' },
+      Lunch: { color: 'darkorange', icon: 'Hamburger' },
+      Training: { color: 'red', icon: 'Bulb' },
+      Offline: { color: 'grey', icon: 'Minus' },
+    },
+    other: { color: 'darkred', icon: 'More' },
+  },
+} = (getFeatureFlags()?.features?.metrics_data_tiles as any) || {};
+
+>>>>>>> upstream/main
 const { teams = [] } = getFeatureFlags().common || {};
 
 export const isFeatureEnabled = () => {
   return enabled;
 };
+<<<<<<< HEAD
+=======
+export const isCallsColumnEnabled = () => {
+  return enabled && calls;
+};
+export const isOtherTasksColumnEnabled = () => {
+  return enabled && other_tasks;
+};
+>>>>>>> upstream/main
 export const isTeamColumnEnabled = () => {
   return enabled && team;
 };
@@ -33,6 +67,12 @@ export const isLocationColumnEnabled = () => {
 export const isAgentSkillsColumnEnabled = () => {
   return enabled && agent_skills;
 };
+<<<<<<< HEAD
+=======
+export const isActivityIconEnabled = () => {
+  return enabled && activity_icon;
+};
+>>>>>>> upstream/main
 export const isHTHighlightEnabled = () => {
   return enabled && highlight_handle_time;
 };
@@ -49,3 +89,9 @@ export const isDisplayTaskQueueNameEnabled = () => {
 export const getTeams = () => {
   return teams;
 };
+<<<<<<< HEAD
+=======
+export const getAgentActivityConfig = () => {
+  return agent_activity_configuration;
+};
+>>>>>>> upstream/main

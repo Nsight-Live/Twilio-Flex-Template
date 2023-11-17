@@ -7,7 +7,16 @@
   "custom_data": {
     "common": {
       "log_level": "info",
+<<<<<<< HEAD
       "teams": ["Blue Team", "Red Team", "Gold Team", "VIP Team"],
+=======
+      "teams": [
+        "Blue Team",
+        "Red Team",
+        "Gold Team",
+        "VIP Team"
+      ],
+>>>>>>> upstream/main
       "departments": [
         "General Management",
         "Marketing",
@@ -213,11 +222,15 @@
         "enabled": true,
         "enable_notes": true,
         "require_disposition": false,
+<<<<<<< HEAD
         "global_dispositions": [
           "Appointment Set",
           "Appointment Not Set",
           "Escalation Required"
         ],
+=======
+        "global_dispositions": ["Resolved", "Not Resolved", "Follow-up Required", "Escalation", "Wrong Department"],
+>>>>>>> upstream/main
         "per_queue": {
           "exampleQueueSid": {
             "require_disposition": true,
@@ -250,10 +263,20 @@
         "handle_time_exceeded_threshold": 300,
         "display_task_queue_name": true,
         "columns": {
+<<<<<<< HEAD
           "team": true,
           "department": false,
           "location": false,
           "agent_skills": true
+=======
+          "calls": true,
+          "other_tasks": true,
+          "team": true,
+          "department": false,
+          "location": false,
+          "agent_skills": true,
+          "activity_icon": false
+>>>>>>> upstream/main
         }
       },
       "send_audio_rec_file": {
@@ -337,7 +360,12 @@
       "queues_stats_metrics": {
         "enabled": false,
         "assigned_tasks_column": true,
+<<<<<<< HEAD
         "wrapping_tasks_column": true
+=======
+        "wrapping_tasks_column": true,
+        "agent_activity_stats_column": true
+>>>>>>> upstream/main
       },
       "sip_support": {
         "enabled": false

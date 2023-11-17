@@ -21,7 +21,7 @@ on:
       environment:
         required: true
         type: environment
-        description: "Environment to use for deployment"
+        description: 'Environment to use for deployment'
 
 jobs:
   terraform_deploy:
@@ -30,14 +30,14 @@ jobs:
     name: Terraform
     env:
       ENCRYPTION_KEY: ${{ secrets.TF_ENCRYPTION_KEY }}
-      TF_STATE_FILES: ".terraform.lock.hcl|terraform.tfstate"
+      TF_STATE_FILES: '.terraform.lock.hcl|terraform.tfstate'
       TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
       TWILIO_API_KEY: ${{ secrets.TWILIO_API_KEY }}
       TWILIO_API_SECRET: ${{ secrets.TWILIO_API_SECRET }}
       ENVIRONMENT: ${{ inputs.environment }}
     steps:
       - uses: actions/checkout@v4
-      - uses: hashicorp/setup-terraform@v2
+      - uses: hashicorp/setup-terraform@v3
       - name: install Twilio CLI
         run: |
           npm install --ignore-scripts
