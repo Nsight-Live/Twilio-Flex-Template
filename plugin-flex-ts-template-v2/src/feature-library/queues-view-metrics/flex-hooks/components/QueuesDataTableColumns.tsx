@@ -3,11 +3,6 @@ import * as Flex from '@twilio/flex-ui';
 import { WorkerQueue } from '@twilio/flex-ui/src/state/QueuesState';
 
 import { FlexComponent } from '../../../../types/feature-loader';
-<<<<<<< HEAD
-import { isAssignedTasksColumnEnabled, isWrappingTasksColumnEnabled } from '../../config';
-import { StringTemplates } from '../strings';
-import { isColumnDescriptionSupported } from '../../utils/helpers';
-=======
 import {
   isAssignedTasksColumnEnabled,
   isWrappingTasksColumnEnabled,
@@ -16,7 +11,6 @@ import {
 import { StringTemplates } from '../strings';
 import { isColumnDescriptionSupported } from '../../utils/helpers';
 import QueueActivityStats from './QueueActivityStats/QueueActivityStats';
->>>>>>> upstream/main
 
 export const componentName = FlexComponent.QueueStats;
 export const componentHook = function addQueuesDataTableColumns(flex: typeof Flex, manager: Flex.Manager) {
@@ -58,8 +52,6 @@ export const componentHook = function addQueuesDataTableColumns(flex: typeof Fle
       { sortOrder: 0 },
     );
   }
-<<<<<<< HEAD
-=======
   if (iAgentActivityStatsColumnEnabled()) {
     const props: any = {};
     if (isColumnDescriptionSupported()) {
@@ -78,5 +70,4 @@ export const componentHook = function addQueuesDataTableColumns(flex: typeof Fle
       { sortOrder: 0 },
     );
   }
->>>>>>> upstream/main
 };

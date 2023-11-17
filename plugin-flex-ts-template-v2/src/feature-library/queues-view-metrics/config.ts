@@ -5,10 +5,7 @@ const {
   enabled = false,
   assigned_tasks_column = true,
   wrapping_tasks_column = true,
-<<<<<<< HEAD
-=======
   agent_activity_stats_column = true,
->>>>>>> upstream/main
 } = (getFeatureFlags()?.features?.queues_stats_metrics as QueuesStatsConfig) || {};
 
 export const isFeatureEnabled = () => {
@@ -21,9 +18,6 @@ export const isAssignedTasksColumnEnabled = () => {
 export const isWrappingTasksColumnEnabled = () => {
   return wrapping_tasks_column;
 };
-<<<<<<< HEAD
-=======
 export const iAgentActivityStatsColumnEnabled = () => {
   return agent_activity_stats_column;
 };
->>>>>>> upstream/main
