@@ -4,32 +4,33 @@ const { prepareFlexFunction, extractStandardResponse } = require(Runtime.getFunc
 
 const requiredParameters = [];
 
-let mappingsCache = null;
-
-async function getMappings() {
-  if (!mappingsCache) {
-    const openMappingsFile = Runtime.getAssets()['/dealer-name/dealer-name-mapping.json'].open;
-    mappingsCache = JSON.parse(openMappingsFile());
-    console.log('Here is the mappings found', mappingsCache);
-  }
-  return mappingsCache;
-}
-
-async function findMappingForNumber(toNumber) {
-  const mappings = await getMappings();
-  return (
-    mappings.find((m) => m.phoneNumber === toNumber) || {
-      queueName: 'General',
-      dealerName: 'General',
-      friendlyName: 'General',
-    }
-  );
-}
-
 exports.handler = prepareFlexFunction(requiredParameters, async (context, event, callback, response, handleError) => {
+  let mappingsCache = null;
+
+  async function getMappings() {
+    if (!mappingsCache) {
+      const openMappingsFile = Runtime.getAssets()['/dealer-name/dealer-name-mapping.json'].open;
+      mappingsCache = JSON.parse(openMappingsFile());
+      console.log('Here are the mappings found', mappingsCache);
+    }
+    return mappingsCache;
+  }
+
+  async function findMappingForNumber(toNumber) {
+    const mappings = await getMappings();
+    return (
+      mappings.find((m) => m.phoneNumber === toNumber) || {
+        queueName: 'General',
+        dealerName: 'General',
+        friendlyName: 'General',
+      }
+    );
+  }
+
   console.log('Execution entered here');
   console.log('Here is the event', event);
   console.log('Here is the event to number', event.phone);
+
   try {
     let toNumber =
       event.phone ||
