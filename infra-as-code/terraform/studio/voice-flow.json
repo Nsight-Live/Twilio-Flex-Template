@@ -44,7 +44,7 @@
         }
       ],
       "properties": {
-        "waitUrl": "https://custom-flex-extensions-serverless-7680-dev.twil.io/features/callback-and-voicemail/studio/wait-experience",
+        "waitUrl": "https://${SERVERLESS_DOMAIN}/features/callback-and-voicemail/studio/wait-experience",
         "offset": {
           "x": 190,
           "y": 1670
@@ -100,7 +100,7 @@
             "key": "phone"
           }
         ],
-        "url": "https://${SERVERLESS_DOMAIN}/new_get_dealer_name"
+        "url": "https://${SERVERLESS_DOMAIN}/features/dealer-name/get-dealer-name"
       }
     },
     {

@@ -133,7 +133,7 @@
             "key": "participantSid"
           }
         ],
-        "url": "https://${SERVERLESS_DOMAIN}/new_get_dealer_name"
+        "url": "https://${SERVERLESS_DOMAIN}/features/dealer-name/get-dealer-name"
       }
     },
     {

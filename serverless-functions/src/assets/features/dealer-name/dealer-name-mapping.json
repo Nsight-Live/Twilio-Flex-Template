@@ -16,5 +16,11 @@
     "queueName": "Nissan",
     "dealerName": "Nissan Auto dealers",
     "friendlyName": "Nissan Auto dealers"
+  },
+  {
+    "phoneNumber": "+14708237715",
+    "queueName": "Toyota",
+    "dealerName": "Toyota",
+    "friendlyName": "Toyota"
   }
 ]
