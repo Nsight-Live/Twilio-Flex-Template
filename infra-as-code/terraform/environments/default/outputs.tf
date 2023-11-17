@@ -24,7 +24,7 @@ output "voice_flow_sid" {
 }
 
 output "new_messaging_flow_sid" {
-  value = twilio_studio_flows_v2.new.sid
+  value = module.studio.new_messaging_flow_sid
   description = "New Messaging Flow SID"
 }
 # END FEATURE: schedule-manager
