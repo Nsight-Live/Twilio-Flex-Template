@@ -4,11 +4,7 @@ const { prepareStudioFunction, extractStandardResponse } = require(Runtime.getFu
 
 const requiredParameters = [];
 
-console.log('Here is a test');
-
 exports.handler = prepareStudioFunction(requiredParameters, async (context, event, callback, response, handleError) => {
-  console.log('Available assets:', Runtime.getAssets());
-
   const client = context.getTwilioClient();
 
   let mappingsCache = null;
@@ -17,7 +13,6 @@ exports.handler = prepareStudioFunction(requiredParameters, async (context, even
     if (!mappingsCache) {
       const openMappingsFile = Runtime.getAssets()['/features/dealer-name/dealer-name-mapping.json'].open;
       mappingsCache = JSON.parse(openMappingsFile());
-      console.log('Here are the mappings found', mappingsCache);
     }
     return mappingsCache;
   }
@@ -32,10 +27,6 @@ exports.handler = prepareStudioFunction(requiredParameters, async (context, even
       }
     );
   }
-
-  console.log('Execution entered here');
-  console.log('Here is the event', event);
-  console.log('Here is the event to number', event.phone);
 
   try {
     let toNumber =
