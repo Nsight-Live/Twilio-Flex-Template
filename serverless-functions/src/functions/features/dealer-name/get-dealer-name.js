@@ -1,15 +1,21 @@
-const { prepareFlexFunction, extractStandardResponse } = require(Runtime.getFunctions()[
+const { prepareStudioFunction, extractStandardResponse } = require(Runtime.getFunctions()[
   'common/helpers/function-helper'
 ].path);
 
 const requiredParameters = [];
 
-exports.handler = prepareFlexFunction(requiredParameters, async (context, event, callback, response, handleError) => {
+console.log('Here is a test');
+
+exports.handler = prepareStudioFunction(requiredParameters, async (context, event, callback, response, handleError) => {
+  console.log('Available assets:', Runtime.getAssets());
+
+  const client = context.getTwilioClient();
+
   let mappingsCache = null;
 
   async function getMappings() {
     if (!mappingsCache) {
-      const openMappingsFile = Runtime.getAssets()['/dealer-name/dealer-name-mapping.json'].open;
+      const openMappingsFile = Runtime.getAssets()['/features/dealer-name/dealer-name-mapping.json'].open;
       mappingsCache = JSON.parse(openMappingsFile());
       console.log('Here are the mappings found', mappingsCache);
     }
