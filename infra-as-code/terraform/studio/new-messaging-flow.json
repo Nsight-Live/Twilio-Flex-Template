@@ -133,7 +133,7 @@
             "key": "participantSid"
           }
         ],
-        "url": "https://${SERVERLESS_DOMAIN}/new_get_dealer_name"
+        "url": "https://${SERVERLESS_DOMAIN}/features/dealer-name/get-dealer-name"
       }
     },
     {
@@ -148,15 +148,15 @@
       "properties": {
         "variables": [
           {
-            "value": "{{widgets.Get_Dealer_Name.parsed.dealerName}}",
+            "value": "{{widgets.Get_Dealer_Name.parsed.mapping.dealerName}}",
             "key": "dealerName"
           },
           {
-            "value": "{{widgets.Get_Dealer_Name.parsed.friendlyName}}",
+            "value": "{{widgets.Get_Dealer_Name.parsed.mapping.friendlyName}}",
             "key": "friendlyName"
           },
           {
-            "value": "{{widgets.Get_Dealer_Name.parsed.queueName}}",
+            "value": "{{widgets.Get_Dealer_Name.parsed.mapping.queueName}}",
             "key": "queueName"
           }
         ],
