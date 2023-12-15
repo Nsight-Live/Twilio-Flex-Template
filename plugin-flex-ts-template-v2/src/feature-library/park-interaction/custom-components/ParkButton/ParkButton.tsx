@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Actions, IconButton, ITask, styled, templates, StateHelper, ConversationState } from '@twilio/flex-ui';
+import { Actions, Button, ITask, styled, templates, StateHelper, ConversationState } from '@twilio/flex-ui';
 
 import { StringTemplates } from '../../flex-hooks/strings';
 
@@ -39,18 +39,20 @@ const ParkButton = (props: TransferButtonProps) => {
 
   return (
     <IconContainer>
-      <IconButton
-        icon="Hold"
+      <Button
         key="park-interaction-button"
         disabled={isLoading || !allowPark()}
         onClick={parkInteraction}
-        variant="secondary"
+        variant="destructive"
         title={
           allowPark()
             ? templates[StringTemplates.ParkInteraction]()
             : templates[StringTemplates.MultipleParticipantsError]()
         }
-      />
+      >
+        {' '}
+        End Chat
+      </Button>
     </IconContainer>
   );
 };
