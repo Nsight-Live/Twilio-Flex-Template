@@ -19,7 +19,7 @@ const EnhancedAgentTaskDetails = ({ task }: EnhancedAgentTaskDetailsProps) => {
         marginBottom="space20"
         color="colorTextSuccess"
       >
-        Dealer Name: {task.attributes.dealer_name}
+        Dealer Name: {task.attributes.dealerName}
       </Text>
     </Flex>
   );
