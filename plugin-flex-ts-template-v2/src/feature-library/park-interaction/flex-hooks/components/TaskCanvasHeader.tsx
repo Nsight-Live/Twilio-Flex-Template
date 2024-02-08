@@ -6,9 +6,16 @@ import { FlexComponent } from '../../../../types/feature-loader';
 export const componentName = FlexComponent.TaskCanvasHeader;
 export const componentHook = function addParkButton(flex: typeof Flex) {
   // This also removes end task for all types, may need to add this back later after testing
-  flex.TaskCanvasHeader.Content.remove('actions');
+  flex.Actions.addListener('afterAcceptTask', (payload) => {
+    if (payload.task.channelType !== 'voice') {
+      flex.TaskCanvasHeader.Content.remove('actions');
+    }
+  });
   flex.TaskCanvasHeader.Content.add(<ParkButton key="park-button" />, {
     sortOrder: 1,
-    if: (props) => Flex.TaskHelper.isCBMTask(props.task) && props.task.taskStatus === 'assigned',
+    if: (props) =>
+      Flex.TaskHelper.isCBMTask(props.task) &&
+      props.task.taskStatus === 'assigned' &&
+      props.task.channelType !== 'voice',
   });
 };
