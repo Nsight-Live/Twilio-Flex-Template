@@ -8,6 +8,23 @@ type EnhancedAgentTaskDetailsProps = {
 };
 
 const EnhancedAgentTaskDetails = ({ task }: EnhancedAgentTaskDetailsProps) => {
+  if (task.attributes.dealer) {
+    return (
+      <Flex hAlignContent="center" vertical>
+        <Text
+          as="p"
+          textAlign="center"
+          fontWeight="fontWeightMedium"
+          fontSize="fontSize30"
+          marginTop="space20"
+          marginBottom="space20"
+          color="colorTextSuccess"
+        >
+          Dealer Name: {task.attributes.dealerName}
+        </Text>
+      </Flex>
+    );
+  }
   return (
     <Flex hAlignContent="center" vertical>
       <Text
@@ -19,7 +36,7 @@ const EnhancedAgentTaskDetails = ({ task }: EnhancedAgentTaskDetailsProps) => {
         marginBottom="space20"
         color="colorTextSuccess"
       >
-        Dealer Name: {task.attributes.dealerName}
+        Dealer Name: Unknown
       </Text>
     </Flex>
   );
