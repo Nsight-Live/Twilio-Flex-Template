@@ -1,26 +1,66 @@
 [
+ {
+    "phoneNumber": "+13158645893",
+    "queueName": "Harley Davidson",
+    "dealerName": "Adirondack Harley Davidson",
+    "friendlyName": "Adirondack Harley Davidson",
+    "id":"messenger:111933988876324",
+    "welcomeMessage":"Thanks for reaching out to us at Adirondack Harley Davidson!"
+  },
+ {
+    "phoneNumber": "+13158645893",
+    "queueName": "Harley Davidson",
+    "dealerName": "Harley Davidson Utica",
+    "friendlyName": "Harley Davidson Utica",
+    "id":"messenger:127923635742",
+    "welcomeMessage":"Thanks for reaching out to us at Harley Davidson Utica!"
+  },
+ {
+    "phoneNumber": "+14697695475",
+    "queueName": "Enhance Wave Franchises",
+    "dealerName": "Model Health & Wellness",
+    "friendlyName": "Model Health & Wellness - Dallas",
+    "id":"messenger:102680641498865",
+    "welcomeMessage":"Thanks for reaching out to us at Model Health & Wellness!"
+  },
+    {
+    "phoneNumber": "+17722386814",
+    "queueName": "Enhance Wave Franchises",
+    "dealerName": "Power of Health & Wellness",
+    "friendlyName": "Power of Health & Wellness - Jupiter",
+    "id":"messenger:100144049371653",
+    "welcomeMessage":"Thanks for reaching out to us at Power of Health & Wellness!"
+  },
   {
     "phoneNumber": "+19785250439",
     "queueName": "Nissan",
     "dealerName": "Nissan Auto dealers",
-    "friendlyName": "Nissan Auto dealers"
+    "friendlyName": "Nissan Auto dealers",
+    "id":"messenger:XXXXXX",
+    "welcomeMessage":"Thanks for contacting Nissan Auto Dealers"
   },
   {
     "phoneNumber": "+12403562124",
     "queueName": "Toyota",
     "dealerName": "Toyota Auto dealers",
-    "friendlyName": "Toyota Auto dealers"
+    "friendlyName": "Toyota Auto dealers",
+    "id":"messenger:XXXXXX",
+    "welcomeMessage":"Thanks for contacting Nissan Auto Dealers"
   },
   {
     "phoneNumber": "+18885024356",
     "queueName": "Nissan",
     "dealerName": "Nissan Auto dealers",
-    "friendlyName": "Nissan Auto dealers"
+    "friendlyName": "Nissan Auto dealers",
+    "id":"messenger:XXXXXX",
+    "welcomeMessage":"Thanks for contacting Nissan Auto Dealers"
   },
   {
     "phoneNumber": "+14708237715",
     "queueName": "Toyota",
     "dealerName": "Toyota",
-    "friendlyName": "Toyota"
+    "friendlyName": "Toyota",
+    "id":"messenger:XXXXXX",
+    "welcomeMessage":"Thanks for contacting Nissan Auto Dealers"
   }
 ]
