@@ -8,7 +8,7 @@ type EnhancedAgentTaskDetailsProps = {
 };
 
 const EnhancedAgentTaskDetails = ({ task }: EnhancedAgentTaskDetailsProps) => {
-  if (task.attributes.dealer) {
+  if (task.attributes.dealerName) {
     return (
       <Flex hAlignContent="center" vertical>
         <Text
