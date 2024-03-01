@@ -8,7 +8,4 @@ export const componentHook = function addAutoWrap(flex: typeof Flex) {
   flex.TaskCanvas.Content.add(<EnhancedAgentTaskDetails key="enhanced-agent-task-details" />, {
     sortOrder: -1,
   });
-  flex.TaskCanvas.Content.add(<EnhancedAgentTaskDetails key="enhanced-agent-task-details" />, {
-    sortOrder: 999,
-  });
 };
