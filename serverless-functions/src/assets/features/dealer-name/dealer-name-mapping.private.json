@@ -17,19 +17,19 @@
   },
  {
     "phoneNumber": "+13158645893",
-    "queueName": "Harley Davidson",
-    "dealerName": "Adirondack Harley Davidson",
-    "friendlyName": "Adirondack Harley Davidson",
+    "queueName": "Harley-Davidson",
+    "dealerName": "Adirondack Harley-Davidson",
+    "friendlyName": "Adirondack Harley-Davidson",
     "id":"messenger:111933988876324",
-    "welcomeMessage":"Thanks for reaching out to us at Adirondack Harley Davidson!"
+    "welcomeMessage":"Thank you for messaging us at Adirondack Harley-Davidson! We are excited about the opportunity to speak with you."
   },
  {
     "phoneNumber": "+13158645893",
-    "queueName": "Harley Davidson",
-    "dealerName": "Harley Davidson Utica",
-    "friendlyName": "Harley Davidson Utica",
+    "queueName": "Harley-Davidson",
+    "dealerName": "Harley-Davidson Utica",
+    "friendlyName": "Harley-Davidson Utica",
     "id":"messenger:127923635742",
-    "welcomeMessage":"Thanks for reaching out to us at Harley Davidson Utica!"
+    "welcomeMessage":"Thank you for messaging us at Harley-Davidson Utica! We are excited about the opportunity to speak with you."
   },
  {
     "phoneNumber": "+14697695475",
@@ -37,7 +37,7 @@
     "dealerName": "Model Health & Wellness",
     "friendlyName": "Model Health & Wellness - Dallas",
     "id":"messenger:102680641498865",
-    "welcomeMessage":"Thanks for reaching out to us at Model Health & Wellness!"
+    "welcomeMessage":"Thank you for messaging us at EnhanceWave! We want to congratulate you on taking the next steps at a healthier life."
   },
     {
     "phoneNumber": "+17722386814",
@@ -45,7 +45,7 @@
     "dealerName": "Power of Health & Wellness",
     "friendlyName": "Power of Health & Wellness - Jupiter",
     "id":"messenger:100144049371653",
-    "welcomeMessage":"Thanks for reaching out to us at Power of Health & Wellness!"
+    "welcomeMessage":"Thank you for messaging us at EnhanceWave! We want to congratulate you on taking the next steps at a healthier life."
   },
   {
     "phoneNumber": "+19785250439",
