@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { ITask } from '@twilio/flex-ui';
 import { Flex } from '@twilio-paste/core/flex';
 import { Text } from '@twilio-paste/core/text';
@@ -12,14 +13,19 @@ type EnhancedAgentTaskDetailsProps = {
 };
 
 const EnhancedAgentTaskDetails = ({ task }: EnhancedAgentTaskDetailsProps) => {
-  const [dealerName, setDealerName] = React.useState(task.attributes.dealerName || ''); // default empty string
-  const [editMode, setEditMode] = React.useState(false); // editMode state
+  const [dealerName, setDealerName] = useState(task.attributes.dealerName || ''); // default empty string
+  const [editMode, setEditMode] = useState(false); // editMode state
 
   const handleSubmit = (e: any) => {
     e.preventDefault(); // to prevent page refresh when the form is submitted
     task.setAttributes({ ...task.attributes, dealerName }); // update task attributes
     setEditMode(false); // switch off edit mode
   };
+
+  useEffect(() => {
+    // This function will be called anytime the task prop changes
+    setDealerName(task.attributes.dealerName || '');
+  }, [task]);
 
   return (
     <Flex hAlignContent="center" vertical>
