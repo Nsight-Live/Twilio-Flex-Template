@@ -46,8 +46,8 @@
       "properties": {
         "waitUrl": "https://${SERVERLESS_DOMAIN}/features/callback-and-voicemail/studio/wait-experience",
         "offset": {
-          "x": 190,
-          "y": 1670
+          "x": 850,
+          "y": 2090
         },
         "workflow": "${WORKFLOW_SID_WORKFLOW_FOR_NSIGHT}",
         "channel": "${VOICE_CHANNEL_SID}",
@@ -115,21 +115,24 @@
       "properties": {
         "variables": [
           {
+            "type": "string",
             "value": "{{widgets.Get_Dealer_Name.parsed.mapping.dealerName}}",
             "key": "dealerName"
           },
           {
+            "type": "string",
             "value": "{{widgets.Get_Dealer_Name.parsed.mapping.queueName}}",
             "key": "queueName"
           },
           {
+            "type": "string",
             "value": "{{widgets.Get_Dealer_Name.parsed.mapping.friendlyName}}",
             "key": "friendlyName"
           }
         ],
         "offset": {
-          "x": 170,
-          "y": 1450
+          "x": 150,
+          "y": 1550
         }
       }
     },
@@ -177,7 +180,9 @@
           "conditions": [
             {
               "friendly_name": "If value equal_to true",
-              "arguments": ["{{widgets.set_isOpen.isOpen}}"],
+              "arguments": [
+                "{{widgets.set_isOpen.isOpen}}"
+              ],
               "type": "equal_to",
               "value": "true"
             }
@@ -203,8 +208,8 @@
       ],
       "properties": {
         "offset": {
-          "x": -410,
-          "y": 980
+          "x": -470,
+          "y": 1050
         },
         "loop": 1,
         "say": "{% case widgets.check_schedule.parsed.closedReason  %}\n\n{% when 'manual' %}\n\nThank you for calling Nsight. We are currently closed due to unforseen circumstances. Please leave us a voicemail and we'll get back to you as soon as we are open.\n\n{% when 'holiday' %}\n\nThank you for calling Nsight. We are currently closed due to the holiday. Please leave us a voicemail and we'll get back to you as soon as we are open.\n\n{% else %}\n\nThank you for calling Nsight. We are currently closed. Please leave us a voicemail and we'll get back to you as soon as we are open.\n\n{% endcase %}\n\nThank you for calling and have a great day."
@@ -215,16 +220,18 @@
       "type": "send-message",
       "transitions": [
         {
+          "next": "Send_to_voicemail",
           "event": "sent"
         },
         {
+          "next": "Send_to_voicemail",
           "event": "failed"
         }
       ],
       "properties": {
         "offset": {
-          "x": -440,
-          "y": 1280
+          "x": -470,
+          "y": 1300
         },
         "service": "{{trigger.message.InstanceSid}}",
         "channel": "{{trigger.message.ChannelSid}}",
@@ -246,6 +253,7 @@
       "properties": {
         "variables": [
           {
+            "type": "string",
             "value": "{{widgets.Check_Schedule.parsed.isOpen | default: false}}",
             "key": "isOpen"
           }
@@ -268,6 +276,7 @@
       "properties": {
         "variables": [
           {
+            "type": "string",
             "value": "{% if flow.variables.retry_schedule_count %}{{ flow.variables.retry_schedule_count | plus: 1 }}\n{% else %}\n1\n{% endif %}",
             "key": "retry_schedule_count"
           }
@@ -292,7 +301,9 @@
           "conditions": [
             {
               "friendly_name": "If value equal_to 3",
-              "arguments": ["{{flow.variables.retry_schedule_count}}"],
+              "arguments": [
+                "{{flow.variables.retry_schedule_count}}"
+              ],
               "type": "equal_to",
               "value": "3"
             }
@@ -319,13 +330,14 @@
       "properties": {
         "variables": [
           {
+            "type": "string",
             "value": "{% if flow.variables.retry_dealer_name_count %}{{ flow.variables.retry_dealer_name_count | plus: 1 }}\n{% else %}\n1\n{% endif %}",
             "key": "retry_dealer_name_count"
           }
         ],
         "offset": {
-          "x": 850,
-          "y": 1390
+          "x": 1420,
+          "y": 1470
         }
       }
     },
@@ -343,7 +355,9 @@
           "conditions": [
             {
               "friendly_name": "If value equal_to 3",
-              "arguments": ["{{flow.variables.retry_dealer_name_count}}"],
+              "arguments": [
+                "{{flow.variables.retry_dealer_name_count}}"
+              ],
               "type": "equal_to",
               "value": "3"
             }
@@ -353,9 +367,35 @@
       "properties": {
         "input": "{{flow.variables.retry_dealer_name_count}}",
         "offset": {
-          "x": 1050,
-          "y": 1650
+          "x": 1620,
+          "y": 1730
         }
+      }
+    },
+    {
+      "name": "Send_to_voicemail",
+      "type": "send-to-flex",
+      "transitions": [
+        {
+          "event": "callComplete"
+        },
+        {
+          "event": "failedToEnqueue"
+        },
+        {
+          "event": "callFailure"
+        }
+      ],
+      "properties": {
+        "waitUrl": "https://${SERVERLESS_DOMAIN}/features/callback-and-voicemail/studio/afterhours-wait-experience",
+        "offset": {
+          "x": -200,
+          "y": 1610
+        },
+        "workflow": "${WORKFLOW_SID_WORKFLOW_FOR_NSIGHT}",
+        "channel": "${VOICE_CHANNEL_SID}",
+        "attributes": "{ \"type\": \"inbound\", \"name\": \"{{trigger.call.From}}\",  \"dealerName\": \"{{widgets.set_variables.dealerName}}\", \"queueName\": \"{{widgets.set_variables.queueName}}\", \"friendlyName\": \"{{widgets.set_variables.friendlyName}}\" }",
+        "waitUrlMethod": "GET"
       }
     }
   ],
