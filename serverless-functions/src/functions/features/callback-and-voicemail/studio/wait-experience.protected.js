@@ -26,7 +26,7 @@ const options = {
     voicemailRecorded: 'Your voicemail has been successfully recorded... Goodbye',
     callbackAndVoicemailUnavailable:
       'The option to request a callback or leave a voicemail is not available at this time. Please continue to hold.',
-    processingError: 'Sorry, we were unable to perform this operation. Please remain on the line.',
+    processingError: '',
   },
 };
 
